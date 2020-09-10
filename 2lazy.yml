@@ -1,0 +1,7 @@
+quiet: true
+start_in_project_dir: true
+
+commands:
+    pack: pio package pack -o husarnet-esp32.tar.gz
+    preview: tar --list -f husarnet-esp32.tar.gz
+    publish: pio package publish --owner husarnet husarnet-esp32.tar.gz

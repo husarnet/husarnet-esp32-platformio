@@ -1,25 +1,42 @@
 {
-    "name": "Husarnet ESP32",
-    "version": "1.2.0-0",
-    "description": "Connect your devices using secure P2P network layer for robots and IoT.",
-    "keywords": ["communication", "vpn", "iot", "p2p", "ipv6"],
-    "repository":
-    {
-      "type": "git",
-      "url": "https://github.com/husarnet/husarnet-esp32.git"
-    },
-    "homepage": "https://husarnet.com/",
-    "frameworks": "arduino",
-    "platforms": "espressif32",
-    "examples": [
-      {
-        "name": "Simple webpage",
-        "base": "examples/simple-webpage",
-        "files": [
-          "src/main.cpp",
-          "platformio.ini"
-        ]
-      }
+  "name": "Husarnet ESP32",
+  "version": "1.2.0-2",
+  "description": "Connect your devices using secure P2P network layer for robots and IoT. Look at docs.husarnet.com for information how to configure your project!",
+  "keywords": [
+    "communication",
+    "vpn",
+    "iot",
+    "p2p",
+    "ipv6"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/husarnet/husarnet-esp32.git"
+  },
+  "homepage": "https://husarnet.com/",
+  "authors": {
+    "name": "Husarnet",
+    "url": "https://husarnet.com"
+  },
+  "frameworks": "arduino",
+  "platforms": "espressif32",
+  "export": {
+    "exclude": [
+      "2lazy.yml",
+      ".vscode",
+      ".gitignore",
+      "examples/*/.vscode",
+      "examples/*/.gitignore"
     ]
-  }
-  
+  },
+  "examples": [
+    {
+      "name": "simple-webserver",
+      "base": "examples/simple-webserver",
+      "files": [
+        "src/simple-webserver.ino",
+        "platformio.ini"
+      ]
+    }
+  ]
+}

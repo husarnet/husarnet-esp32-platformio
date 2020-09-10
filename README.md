@@ -16,4 +16,4 @@ to the [documentation page](https://docs.husarnet.com/).
 
 You'll find full examples in our [examples](examples) directory. Code should work for both Arduino and Platformio variants.
 
-Start with a [simple-webpage](examples/simple-webpage) for a fairly minimal example.
+Start with a [simple-webserver](examples/simple-webserver) for a fairly minimal example.
