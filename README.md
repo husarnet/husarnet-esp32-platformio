@@ -1,5 +1,3 @@
-<center>
-
 ![Husarnet logo](images/husarnet-logo.svg)
 
 # Husarnet for ESP32
@@ -7,8 +5,6 @@
 Husarnet is a low latency, lightweight, privacy preserving P2P VPN. If you want
 to know more go to the [Husarnet's webpage](https://husarnet.com/) or directly
 to the [documentation page](https://docs.husarnet.com/).
-
-</center>
 
 ## Installation and usage
 
