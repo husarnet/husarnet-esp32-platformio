@@ -37,6 +37,13 @@
         "src/simple-webserver.ino",
         "platformio.ini"
       ]
+    },
+    {
+      "name": "simple-webcam",
+      "base": "examples/simple-webcam",
+      "files": [
+        "src/simple-webcam.ino"
+      ]
     }
   ]
 }
