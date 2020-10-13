@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Husarnet Demo</title>
+    <link id='stylesheet' rel='stylesheet' href="%STATIC_BASE_URL%/water.css.dark.standalone.min.css" />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <script src='%STATIC_BASE_URL%/zoid.frame.min.js'></script>
+    <script>
+        function subscribeAllEvents(obj) {
+            for (var key in obj) {
+                if (key.search('on') === 0) {
+                    obj.addEventListener(key.slice(2), function () {
+                        console.log("Event: " + event.type, this)
+                    })
+                }
+            }
+        }
+
+        function getHttp(url, onSuccess) {
+            const request = new XMLHttpRequest();
+
+            request.onreadystatechange = (e) => {
+                console.log("Request to " + url + " sent!")
+            }
+
+            request.onload = function () {
+                if (this.status != 200) {
+                    alert("Unable to get peer data!");
+                    return;
+                }
+
+                onSuccess(this);
+            }
+
+            request.timeout = 500;
+            request.responseType = "json";
+            // subscribeAllEvents(request);
+            request.open("GET", url, true);
+            request.send();
+        }
+
+        function loadPeer(hostname, peer) {
+            window.components[hostname] = [];
+
+            let peerContainer = document.createElement("div");
+            peerContainer.id = hostname;
+            peerContainer.classList.add("peer");
+            peerContainer.style.order = peer.order;
+            document.getElementById("peers").appendChild(peerContainer);
+
+            for (let component of peer.components) {
+                let script = document.createElement('script');
+
+                script.addEventListener("load", function () {
+                    console.log(this.src + " loaded. Rendering component.");
+                    let componentContainer = document.createElement("div");
+                    componentContainer.id = hostname + "_" + component.slug;
+                    componentContainer.classList.add("component");
+                    componentContainer.style.order = component.order;
+                    peerContainer.appendChild(componentContainer);
+
+                    window.components[hostname][component.slug]({}).render(componentContainer);
+                    console.log(this.src + " component loaded.");
+                });
+
+                script.addEventListener("timeout", function () {
+                    console.log("Timeout when trying to load data from " + hostname);
+                });
+
+                script.async = false;
+                script.src = "http://" + hostname + ":8000/" + component.script;
+                document.head.appendChild(script);
+                console.log("Attempting to load component from " + script.src);
+            }
+        }
+
+        function tryHost(hostname) {
+            url = "http://" + hostname + ":8000/data.json"
+            getHttp(url, function (req) {
+                loadPeer(hostname, req.response);
+            })
+        }
+
+        function getMetadata() {
+            url = "http://%SELF_HOSTNAME%:8000/data.json"
+            getHttp(url, function (req) {
+                for (peer of req.response.peers) {
+                    tryHost(peer.hostname);
+                }
+
+            })
+        }
+
+        window.addEventListener("load", function () {
+            window.components = new Map();  // hostname -> component list
+            getMetadata();
+        });
+    </script>
+    <style>
+        body {
+            max-width: none;
+            padding: 1em;
+            margin: 0;
+        }
+
+        #peers {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .peer {
+            display: flex;
+            flex-direction: column;
+            background: var(--background);
+        }
+
+        #peers,
+        .peer {
+            align-items: stretch;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .peer:nth-child(2n) {
+            background: var(--background-alt);
+        }
+
+        .component {}
+
+        .component:not(:last-child) {
+            border-bottom: 1px solid var(--scrollbar-thumb);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="peers"></div>
+</body>
+
+</html>

@@ -2,3 +2,4 @@
 .vscode
 *.tar.gz
 examples/*/.gitignore
+examples/*/.mypy_cache
