@@ -79,6 +79,7 @@ void setup()
 
   // Setup HTTP endpoints
   server.on(streamPath, handleMjpeg);
+  server.on("/index.html", handleMjpeg); //just for compatibility with an optional proxy webserver
   server.begin();
 
   // Output some user friendly data
