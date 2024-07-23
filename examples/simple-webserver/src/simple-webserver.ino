@@ -1,49 +1,60 @@
-#include "Arduino.h"
+#include <Arduino.h>
 #include <WiFi.h>
-#include <Husarnet.h>
 #include <WebServer.h>
+#include <husarnet.h>
 
 // WiFi credentials
-const char* ssid     = "wifi-network";
-const char* password = "wifi-password";
+#define WIFI_SSID = "wifi-network";
+#define char* WIFI_PASS = "wifi-password";
 
 // Husarnet credentials
-const char* hostName = "awesome-device";
-const char* husarnetJoinCode = "fc94:b01d:1803:8dd8:b293:5c7d:7639:932a/xxxxxxxxxxxxxxxxxxxx";
-const char* dashboardURL = "default";
+#define HOSTNAME = "esp32-pio-webserver";
+#define JOIN_CODE = "xxxxxxxxxxxxxxxxxxxx";
 
-// Setup http server
+HusarnetClient husarnet;
 WebServer server(80);
 
-void onHttpReqFunc() {
-  server.sendHeader("Connection", "close");
-  server.send(200, "text/html", "Hello World!");
+void handleRoot() {
+  server.send(200, "text/plain", "Hello Husarnet!");
 }
 
 void setup() {
   Serial.begin(115200);
 
-  // Connect to Wi-Fi
-  Serial.printf("Connecting to %s", ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  // Connect to the WiFi network
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  
+  Serial.println("Connecting to WiFi");
+  if (WiFi.waitForConnectResult() != WL_CONNECTED) {
+    Serial.printf("WiFi connection failure (err: %d)\n", WiFi.status());
+    delay(5000);
+    ESP.restart();
   }
 
-  Serial.printf("done!\r\nLocal IP: %s\r\n", WiFi.localIP().toString().c_str());
+  Serial.print("Local IP: ");
+  Serial.println(WiFi.localIP());
 
-  // Start Husarnet
-  Husarnet.selfHostedSetup(dashboardURL);
-  Husarnet.join(husarnetJoinCode, hostName);
-  Husarnet.start();
+  // Join the Husarnet network
+  husarnet.join(HOSTNAME, JOIN_CODE);
 
-  // Configure http server
-  server.on("/", HTTP_GET, onHttpReqFunc);
+  while(!husarnet.isJoined()) {
+    Serial.println("Waiting for Husarnet network...");
+    delay(1000);
+  }
+  Serial.println("Husarnet network joined");
+
+  Serial.print("Husarnet IP: ");
+  Serial.println(husarnet.getIpAddress().c_str());
+
+  // Start the web server
+  server.on("/", handleRoot);
   server.begin();
+  Serial.println("HTTP server started");
 }
 
 void loop() {
-  // Handle connections
+  // Handle incoming connections
   server.handleClient();
+  delay(2);
 }

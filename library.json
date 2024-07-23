@@ -1,6 +1,6 @@
 {
   "name": "Husarnet ESP32",
-  "version": "1.2.0-5",
+  "version": "2.0.0-beta1",
   "description": "Connect your devices using secure P2P network layer for robots and IoT. Look at docs.husarnet.com for information how to configure your project!",
   "keywords": [
     "communication",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/husarnet/husarnet-esp32.git"
+    "url": "https://github.com/husarnet/husarnet-esp32-platformio.git"
   },
   "homepage": "https://husarnet.com/",
   "authors": {
@@ -22,11 +22,16 @@
   "platforms": "espressif32",
   "export": {
     "exclude": [
-      "2lazy.yml",
       ".vscode",
       ".gitignore",
+      "version.txt",
       "examples/*/.vscode",
       "examples/*/.gitignore"
+    ]
+  },
+  "build": {
+    "flags": [
+      "-llibhusarnet"
     ]
   },
   "examples": [
@@ -36,13 +41,6 @@
       "files": [
         "src/simple-webserver.ino",
         "platformio.ini"
-      ]
-    },
-    {
-      "name": "simple-webcam",
-      "base": "examples/simple-webcam",
-      "files": [
-        "src/simple-webcam.ino"
       ]
     }
   ]
