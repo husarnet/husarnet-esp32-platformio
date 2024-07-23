@@ -4,12 +4,12 @@
 #include <husarnet.h>
 
 // WiFi credentials
-#define WIFI_SSID = "wifi-network";
-#define char* WIFI_PASS = "wifi-password";
+#define WIFI_SSID "wifi-network";
+#define WIFI_PASS "wifi-password";
 
 // Husarnet credentials
-#define HOSTNAME = "esp32-pio-webserver";
-#define JOIN_CODE = "xxxxxxxxxxxxxxxxxxxx";
+#define HOSTNAME "esp32-pio-webserver";
+#define JOIN_CODE "xxxxxxxxxxxxxxxxxxxx";
 
 HusarnetClient husarnet;
 WebServer server(80);
