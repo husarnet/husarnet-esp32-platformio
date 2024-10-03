@@ -1,6 +1,6 @@
 {
   "name": "Husarnet ESP32",
-  "version": "2.0.0-beta4",
+  "version": "2.0.0-beta5",
   "description": "Connect your devices using secure P2P network layer for robots and IoT. Look at docs.husarnet.com for information how to configure your project!",
   "keywords": [
     "communication",
