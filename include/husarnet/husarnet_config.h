@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Husarnet sp. z o.o.
+// Copyright (c) 2025 Husarnet sp. z o.o.
 // Authors: listed in project_root/README.md
 // License: specified in project_root/LICENSE.txt
 #pragma once
@@ -17,7 +17,7 @@
 #include "sdkconfig.h"
 #endif
 
-#define HUSARNET_VERSION "2.0.280"
+#define HUSARNET_VERSION "2.0.304"
 #define WEBSETUP_SERVER_PORT 5580
 #define WEBSETUP_CLIENT_PORT 4800
 #define BASESERVER_PORT 443

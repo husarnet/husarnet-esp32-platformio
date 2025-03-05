@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Husarnet sp. z o.o.
+// Copyright (c) 2025 Husarnet sp. z o.o.
 // Authors: listed in project_root/README.md
 // License: specified in project_root/LICENSE.txt
 #pragma once
@@ -135,6 +135,7 @@ class HusarnetManager {
   IpAddress getWebsetupAddress();
   std::vector<IpAddress> getBaseServerAddresses();
   std::vector<IpAddress> getDashboardApiAddresses();
+  std::vector<IpAddress> getEbAddresses();
 
   NgSocket* getNGSocket();
   SecurityLayer* getSecurityLayer();

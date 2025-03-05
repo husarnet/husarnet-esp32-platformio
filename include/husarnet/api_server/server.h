@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Husarnet sp. z o.o.
+// Copyright (c) 2025 Husarnet sp. z o.o.
 // Authors: listed in project_root/README.md
 // License: specified in project_root/LICENSE.txt
 #pragma once
@@ -42,6 +42,9 @@ class ApiServer {
       std::string errorString);
 
   bool validateSecret(const httplib::Request& req, httplib::Response& res);
+  void forwardRequestToDashboardApi(
+      const httplib::Request& req,
+      httplib::Response& res);
 
   nlohmann::json getStandardReply();
 

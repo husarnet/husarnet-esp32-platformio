@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Husarnet sp. z o.o.
+// Copyright (c) 2025 Husarnet sp. z o.o.
 // Authors: listed in project_root/README.md
 // License: specified in project_root/LICENSE.txt
 #pragma once
@@ -119,9 +119,12 @@ class ConfigStorage {
   void setUserSetting(UserSetting setting, InetAddress inet);
   void clearUserSetting(UserSetting setting);
 
+  // Env variable related methods
   bool isUserSettingOverriden(UserSetting setting) const;
   std::string getPersistentUserSetting(UserSetting setting) const;
   void persistUserSettingOverride(UserSetting setting);
+
+  bool isUserSettingNonDefault(UserSetting setting) const;
 
   std::string getUserSetting(UserSetting setting) const;
   bool getUserSettingBool(UserSetting setting) const;
